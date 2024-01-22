@@ -1,22 +1,31 @@
-<div id="<%= dom_id pantry %>">
-  <p class="my-5">
+<div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= link_to pantry.name, pantry %></h5>
+
+  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
     <strong class="block font-medium mb-1">User:</strong>
     <%= pantry.user_id %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= pantry.name %>
-  </p>
-
-  <p class="my-5">
+  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
     <strong class="block font-medium mb-1">Status:</strong>
     <%= pantry.status %>
   </p>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this pantry", pantry, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this pantry", edit_pantry_path(pantry), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+    <div class="flex mt-4">
+      <%= link_to pantry, class: "flex-1 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" do %>
+        <span>Show</span>
+        <svg class="w-4 h-4 ms-2" aria-hidden="true" fill="none" viewBox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+      <% end %>
+
+      <%= link_to edit_pantry_path(pantry), class: "flex-1 ml-2 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" do %>
+        <span>Edit</span>
+        <svg class="w-4 h-4 ms-2" aria-hidden="true" fill="none" viewBox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+      <% end %>
+    </div>
   <% end %>
 </div>

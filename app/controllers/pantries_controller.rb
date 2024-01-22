@@ -25,7 +25,7 @@ class PantriesController < ApplicationController
 
     respond_to do |format|
       if @pantry.save
-        format.html { redirect_to pantry_url(@pantry), notice: "Pantry was successfully created." }
+        format.html { redirect_to pantries_path, notice: "Pantry was successfully created." }
         format.json { render :show, status: :created, location: @pantry }
       else
         format.html { render :new, status: :unprocessable_entity }
