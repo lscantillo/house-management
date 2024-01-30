@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_05_190336) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_30_003909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,6 +59,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_190336) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "pantry_id", null: false
+    t.index ["pantry_id"], name: "index_purchases_on_pantry_id"
     t.index ["user_id"], name: "index_purchases_on_user_id"
   end
 
@@ -122,6 +124,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_190336) do
   add_foreign_key "pantries", "users"
   add_foreign_key "products_categories", "categories"
   add_foreign_key "products_categories", "products"
+  add_foreign_key "purchases", "pantries"
   add_foreign_key "purchases", "users"
   add_foreign_key "purchases_products", "products"
   add_foreign_key "purchases_products", "purchases"
