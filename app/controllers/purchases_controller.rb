@@ -22,10 +22,10 @@ class PurchasesController < ApplicationController
   # POST /purchases or /purchases.json
   def create
     @purchase = Purchase.new(purchase_params)
-
+    debugger
     respond_to do |format|
       if @purchase.save
-        format.html { redirect_to purchase_url(@purchase), notice: "Purchase was successfully created." }
+        format.html { redirect_to products_purchase_path(@purchase), notice: "Purchase was successfully created." }
         format.json { render :show, status: :created, location: @purchase }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -59,10 +59,25 @@ class PurchasesController < ApplicationController
 
   def products
     @purchase = Purchase.find(params[:id])
+    @pantry = @purchase.pantry
     @products = @purchase.products
+    @purchases_product = @purchase.purchases_products
+    @total = @purchases_product.sum(:price)
+    @quantity = @purchases_product.sum(:quantity)
+  end
+
+  def add_product
+    @purchase = Purchase.find(params[:purchase_id])
+    @purchases_product = @purchase.purchases_products.build(purchases_product_params)
+    if @purchases_product.save
+      redirect_to products_purchase_path(@purchase), notice: "Product was successfully added."
+    else
+      render :products
+    end
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_purchase
       @purchase = Purchase.find(params[:id])
@@ -70,6 +85,10 @@ class PurchasesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def purchase_params
-      params.require(:purchase).permit(:name, :user_id, :status)
+      params.require(:purchase).permit(:name, :user_id, :status, :pantry_id)
+    end
+
+    def purchases_product_params
+      params.require(:purchases_product).permit(:description, :expiration_at, :price, :purchased_at, :quantity, :product_id, :purchase_id)
     end
 end

@@ -10,9 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_30_003909) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_09_183104) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "brands", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.bigint "parent_id"
@@ -42,6 +48,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_003909) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "brand_id"
+    t.index ["brand_id"], name: "index_products_on_brand_id"
   end
 
   create_table "products_categories", force: :cascade do |t|
@@ -71,6 +79,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_003909) do
     t.datetime "expiration_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
+    t.integer "quantity"
+    t.decimal "price"
     t.index ["product_id"], name: "index_purchases_products_on_product_id"
     t.index ["purchase_id"], name: "index_purchases_products_on_purchase_id"
   end
@@ -122,6 +133,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_003909) do
   end
 
   add_foreign_key "pantries", "users"
+  add_foreign_key "products", "brands"
   add_foreign_key "products_categories", "categories"
   add_foreign_key "products_categories", "products"
   add_foreign_key "purchases", "pantries"

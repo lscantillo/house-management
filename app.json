@@ -1,0 +1,14 @@
+{
+  "name": "house-management",
+  "description": "House Management System",
+  "keywords": [
+    "dokku",
+    "rails",
+    "management"
+  ],
+  "scripts": {
+    "dokku": {
+      "postdeploy": "bundle exec rails db:migrate"
+    }
+  }
+}

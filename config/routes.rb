@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :brands
   devise_for :users, path_prefix: 'admin'
 
   get 'welcome/index'
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'pantries#index'
   resources :purchases do
+    post :add_product, to: 'purchases#add_product'
     member do
       get :products, to: 'purchases#products'
     end
