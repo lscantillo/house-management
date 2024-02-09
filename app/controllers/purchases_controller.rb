@@ -22,7 +22,6 @@ class PurchasesController < ApplicationController
   # POST /purchases or /purchases.json
   def create
     @purchase = Purchase.new(purchase_params)
-    debugger
     respond_to do |format|
       if @purchase.save
         format.html { redirect_to products_purchase_path(@purchase), notice: "Purchase was successfully created." }
